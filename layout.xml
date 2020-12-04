@@ -7,4 +7,9 @@
 <entry key="NotCircuit">42,183,202</entry>
 <entry key="AndCircuit">123,192,67</entry>
 <entry key="Font">255,255,255</entry>
+<entry key="CircuitBarBackground">30,30,30</entry>
+<entry key="CreateButtonBackground">59,59,59</entry>
+<entry key="CreateButtonForeground">213,213,213</entry>
+<entry key="CircuitButtonBackground">15,15,15</entry>
+<entry key="CircuitButtonForeground">192,192,194</entry>
 </properties>

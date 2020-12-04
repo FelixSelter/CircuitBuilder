@@ -63,7 +63,7 @@ public class CircuitPanel extends JPanel implements MouseListener, KeyListener, 
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		g.setColor(new Color(44, 44, 44));
+		g.setColor(ColorManager.instance.getColorOf("CircuitPanelBackground"));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		pinSpace = Math.round(getHeight() / 100f);

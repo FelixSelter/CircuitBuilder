@@ -18,8 +18,8 @@ public class CircuitButton extends JButton implements ActionListener {
 		this.circuit = circuit;
 		addActionListener(this);
 		setLayout(new BorderLayout());
-		setBackground(new Color(15, 15, 15));
-		setForeground(Color.LIGHT_GRAY);
+		setBackground(ColorManager.instance.getColorOf("CircuitButtonBackground"));
+		setForeground(ColorManager.instance.getColorOf("CircuitButtonForeground"));
 		setText(circuit.getName());
 
 		addComponentListener(new ComponentAdapter() {

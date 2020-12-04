@@ -21,7 +21,7 @@ public class CircuitBar extends JPanel {
 	private JButton create = new JButton("CREATE");
 
 	public CircuitBar() {
-		setBackground(new Color(30, 30, 30));
+		setBackground(ColorManager.instance.getColorOf("CircuitBarBackground"));
 		setLayout(new GridLayout());
 		setBorder(new LineBorder(getBackground(), 5));
 		((GridLayout) getLayout()).setHgap(10);
@@ -34,8 +34,8 @@ public class CircuitBar extends JPanel {
 		}
 
 		create.setLayout(new BorderLayout());
-		create.setBackground(new Color(59, 59, 59));
-		create.setForeground(new Color(213, 213, 213));
+		create.setBackground(ColorManager.instance.getColorOf("CreateButtonBackground"));
+		create.setForeground(ColorManager.instance.getColorOf("CreateButtonForeground"));
 		create.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
