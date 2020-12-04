@@ -56,7 +56,7 @@ public class CircuitPanel extends JPanel implements MouseListener, KeyListener, 
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		for (DrawableCircuit drawedCircuit : circuits) {
 			drawedCircuit.doCalculation();
 		}
@@ -111,6 +111,7 @@ public class CircuitPanel extends JPanel implements MouseListener, KeyListener, 
 		}
 
 		g.setColor(ColorManager.instance.getColorOf("Border"));
+		g.setFont(new Font("", 0, getWidth()/50));
 		g2.setStroke(new BasicStroke(10));
 		g.drawRect(0, 0, getWidth(), getHeight());
 
@@ -118,19 +119,20 @@ public class CircuitPanel extends JPanel implements MouseListener, KeyListener, 
 
 			int pinDiameter = (getHeight() / 20);
 			int circuitHeight = pinDiameter * circuitOnCursor.getMaxPinsVerticaly();
-			int circuitWidth = getWidth() / 20;
+			int circuitWidth = g.getFontMetrics().stringWidth(circuitOnCursor.getName()) + 20;
 			g.setColor(ColorManager.instance.getColorOf("Pin"));
 
-			int inPinBorder = (circuitHeight - (circuitOnCursor.getInPins() * pinDiameter)) / 2;
+			int inPinSpace = circuitHeight / (circuitOnCursor.getInPins()) - pinDiameter;
 			for (int inPin = 0; inPin < circuitOnCursor.getInPins(); inPin++) {
 				g.fillOval(mouseCoordinates.x - (pinDiameter / 2),
-						mouseCoordinates.y + inPinBorder * (inPin + 1) + inPin * pinDiameter, pinDiameter, pinDiameter);
+						mouseCoordinates.y + (inPinSpace / 2) + (inPin) * (pinDiameter + inPinSpace), pinDiameter,
+						pinDiameter);
 			}
 
-			int outPinBorder = (circuitHeight - (circuitOnCursor.getOutPins() * pinDiameter)) / 2;
+			int outPinSpace = circuitHeight / (circuitOnCursor.getOutPins()) - pinDiameter;
 			for (int outPin = 0; outPin < circuitOnCursor.getOutPins(); outPin++) {
 				g.fillOval(mouseCoordinates.x + circuitWidth - (pinDiameter / 2),
-						mouseCoordinates.y + outPinBorder * (outPin + 1) + outPin * pinDiameter, pinDiameter,
+						mouseCoordinates.y + (outPinSpace / 2) + (outPin) * (pinDiameter + outPinSpace), pinDiameter,
 						pinDiameter);
 			}
 
@@ -138,10 +140,7 @@ public class CircuitPanel extends JPanel implements MouseListener, KeyListener, 
 			g.fillRect(mouseCoordinates.x, mouseCoordinates.y, circuitWidth, circuitHeight);
 
 			g.setColor(ColorManager.instance.getColorOf("Font"));
-			g.setFont(new Font("", 0, circuitWidth / circuitOnCursor.getName().length()));
-			g.drawString(circuitOnCursor.getName(),
-					mouseCoordinates.x + (circuitWidth / 2)
-							- (g.getFontMetrics().stringWidth(circuitOnCursor.getName()) / 2),
+			g.drawString(circuitOnCursor.getName(), mouseCoordinates.x + 10,
 					mouseCoordinates.y + circuitHeight / 2 + g.getFontMetrics().getMaxAscent() / 2);
 
 		}

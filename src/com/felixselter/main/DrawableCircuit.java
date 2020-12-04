@@ -40,22 +40,22 @@ public class DrawableCircuit {
 		int circuitHeight = pinDiameter * circuit.getMaxPinsVerticaly();
 		int circuitWidth = width / 20;
 
-		int inPinBorder = (circuitHeight - (circuit.getInPins() * pinDiameter)) / 2;
+		int inPinSpace = circuitHeight / (inPins.length) - pinDiameter;
 		for (int inPin = 0; inPin < circuit.getInPins(); inPin++) {
 			Main.main.frame.contentpanel.circuitpanel.pins.put(inPins[inPin], new Rectangle(x - (pinDiameter / 2),
-					y + inPinBorder * (inPin + 1) + inPin * pinDiameter, pinDiameter, pinDiameter));
+					y + (inPinSpace / 2) + (inPin) * (pinDiameter + inPinSpace), pinDiameter, pinDiameter));
 		}
 
-		int outPinBorder = (circuitHeight - (circuit.getOutPins() * pinDiameter)) / 2;
+		int outPinSpace = circuitHeight / (outPins.length) - pinDiameter;
 		for (int outPin = 0; outPin < circuit.getOutPins(); outPin++) {
 			Main.main.frame.contentpanel.circuitpanel.pins.put(outPins[outPin],
 					new Rectangle(x + circuitWidth - (pinDiameter / 2),
-							y + outPinBorder * (outPin + 1) + outPin * pinDiameter, pinDiameter, pinDiameter));
+							y + (outPinSpace / 2) + (outPin) * (pinDiameter + outPinSpace), pinDiameter, pinDiameter));
 		}
 	}
 
 	public void doCalculation() {// call before drawing the outer pins of the circuitpanel
-		
+
 		boolean[] inValues = new boolean[circuit.getInPins()];
 		for (int i = 0; i < inPins.length; i++) {
 			inValues[i] = inPins[i].isActive();
@@ -66,45 +66,43 @@ public class DrawableCircuit {
 		for (int i = 0; i < outPins.length; i++) {
 			outPins[i].setActive(outValues[i]);
 		}
-		
+
 	}
 
 	public void draw(Graphics g, int width, int height) {
 
 		Graphics2D g2 = (Graphics2D) g;
+		g.setFont(new Font("", 0, width / 50));
 
 		int x = (int) (width * factorX);
 		int y = (int) (height * factorY);
 		int pinDiameter = (height / 20);
 		int circuitHeight = pinDiameter * circuit.getMaxPinsVerticaly();
-		int circuitWidth = width / 20;
+		int circuitWidth = g.getFontMetrics().stringWidth(circuit.getName()) + 20;
 
-		int inPinBorder = (circuitHeight - (circuit.getInPins() * pinDiameter)) / 2;
+		int inPinSpace = circuitHeight / (inPins.length) - pinDiameter;
 		for (int inPin = 0; inPin < inPins.length; inPin++) {
 
 			g.setColor(inPins[inPin].isActive() ? ColorManager.instance.getColorOf("ActivePin")
 					: ColorManager.instance.getColorOf("Pin"));
-			g.fillOval(x - (pinDiameter / 2), y + inPinBorder * (inPin + 1) + inPin * pinDiameter, pinDiameter,
+			g.fillOval(x - (pinDiameter / 2), y + (inPinSpace / 2) + (inPin) * (pinDiameter + inPinSpace), pinDiameter,
 					pinDiameter);
 		}
 
-		int outPinBorder = (circuitHeight - (circuit.getOutPins() * pinDiameter)) / 2;
+		int outPinSpace = circuitHeight / (outPins.length) - pinDiameter;
 		for (int outPin = 0; outPin < outPins.length; outPin++) {
 
 			g.setColor(outPins[outPin].isActive() ? ColorManager.instance.getColorOf("ActivePin")
 					: ColorManager.instance.getColorOf("Pin"));
-			g.fillOval(x + circuitWidth - (pinDiameter / 2), y + outPinBorder * (outPin + 1) + outPin * pinDiameter,
-					pinDiameter, pinDiameter);
+			g.fillOval(x + circuitWidth - (pinDiameter / 2),
+					y + (outPinSpace / 2) + (outPin) * (pinDiameter + outPinSpace), pinDiameter, pinDiameter);
 		}
 
 		g.setColor(circuit.getColor());
 		g.fillRect(x, y, circuitWidth, circuitHeight);
 
 		g.setColor(ColorManager.instance.getColorOf("Font"));
-		g.setFont(new Font("", 0, circuitWidth / circuit.getName().length()));
-		g.drawString(circuit.getName(),
-				x + (circuitWidth / 2) - (g.getFontMetrics().stringWidth(circuit.getName()) / 2),
-				y + circuitHeight / 2 + g.getFontMetrics().getMaxAscent() / 2);
+		g.drawString(circuit.getName(), x + 10, y + circuitHeight / 2 + g.getFontMetrics().getMaxAscent() / 2);
 
 		for (Pin pin : outPins) {
 			if (pin.getNextPins().size() > 0) {
@@ -129,11 +127,11 @@ public class DrawableCircuit {
 	public Circuit getCircuit() {
 		return circuit;
 	}
-	
+
 	public Pin[] getInPins() {
 		return inPins;
 	}
-	
+
 	public Pin[] getOutPins() {
 		return outPins;
 	}
