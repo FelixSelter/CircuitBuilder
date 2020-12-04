@@ -1,4 +1,4 @@
 # CircuitBuilder
 Build your own Computer starting with AND and NOT  
 I will add detailed documentation soon  
-Heavily inspired / recreated fromhttps://www.youtube.com/watch?v=QZwneRb-zqA  
+Heavily inspired / recreated from https://www.youtube.com/watch?v=QZwneRb-zqA  
