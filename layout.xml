@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="Pin">28,32,40</entry>
+<entry key="ActivePin">232,30,49</entry>
+<entry key="Border">54,54,54</entry>
+<entry key="NotCircuit">42,183,202</entry>
+<entry key="AndCircuit">123,192,67</entry>
+<entry key="Font">255,255,255</entry>
+</properties>
